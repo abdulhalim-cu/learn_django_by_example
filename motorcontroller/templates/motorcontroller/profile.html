@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block main_page %}
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-lg-6 col-md-offset-3">
+        <h1 class="page-header">Sign up</h1>
+        <form action="{% url 'motorcontroller:profile' %}" method="post">
+          {% csrf_token %}
+          {{ form|crispy }}
+          <button class="btn btn-primary" type="submit">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

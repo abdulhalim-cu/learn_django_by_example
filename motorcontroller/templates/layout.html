@@ -1,0 +1,57 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Control Panel</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/sb-admin-2.css' %}" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="{% static 'font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'metisMenu/metisMenu.min.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <div id="wrapper">
+      <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0;">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{% url 'motorcontroller:index' %}">Control Panel</a>
+        </div>
+
+        <ul class="nav navbar-top-links navbar-right">
+          {% block navbar-dropdown %}{% endblock %}
+          {% block user %}{% endblock %}
+        </ul>
+
+        <div class="navbar-default sidebar" role="navigation">
+          <div class="sidebar-nav navbar-collapse">
+            {% block side-menu %}{% endblock %}
+          </div>
+        </div>
+      </nav>
+
+      {% block main_page %}{% endblock %}
+
+    </div>
+    <!-- jQuery -->
+    <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="{% static 'js/sb-admin-2.js' %}"></script>
+    <script src="{% static 'metisMenu/metisMenu.min.js' %}"></script>
+  </body>
+</html>
