@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+# During development only.
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -122,3 +125,5 @@ STATIC_URL = '/static/'
 STATIC_ROOT = (os.path.join(BASE_DIR,  'static_root'))
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+
+LOGIN_REDIRECT_URL = '/controller/'
