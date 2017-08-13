@@ -3,14 +3,18 @@ from django.contrib.auth import login, authenticate, update_session_auth_hash
 from .forms import SignUpFrom, UserProfileForm, DeviceForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 # from django.views.generic import UpdateView
 from django.contrib.auth.forms import PasswordChangeForm
+from .models import *
 
 
 @login_required(login_url='motorcontroller:login')
 def index(request):
-    return render(request, 'motorcontroller/index.html', {})
+    # devices = Device.objects.get(user=request.user)
+    # get() return more than two records
+    devices = Device.objects.filter(user=request.user)
+    return render(request, 'motorcontroller/index.html', {'devices':devices})
 
 
 def signup(request):

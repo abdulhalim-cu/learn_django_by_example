@@ -42,7 +42,6 @@ INSTALLED_APPS = [
 ]
 
 # During development only.
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -133,3 +132,11 @@ TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
 LOGIN_REDIRECT_URL = '/controller/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'abtesterbd@gmail.com'
+EMAIL_HOST_PASSWORD = 'pjqhdltmacluruno'
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'AB Tester <abtesterbd@gmail.com>'

@@ -1,0 +1,9 @@
+{% if devices %}
+  {% for device in devices %}
+  <li>
+    <a href="{{ device.device_id }}">{{ device.device_name }}</a>
+  </li>
+  {% endfor %}
+{% else %}
+  <li>No device found</li>
+{% endif %}
