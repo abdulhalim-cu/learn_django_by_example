@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, update_session_auth_hash
-from .forms import SignUpFrom, UserProfileForm
+from .forms import SignUpFrom, UserProfileForm, DeviceForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 # from django.contrib.auth.models import User
@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 
 
-@login_required(login_url='/login/')
+@login_required(login_url='motorcontroller:login')
 def index(request):
     return render(request, 'motorcontroller/index.html', {})
 
@@ -48,9 +48,26 @@ def password_change(request):
             user = form.save()
             update_session_auth_hash(request, user)
             messages.success(request, 'Your password successfully updated')
-            return redirect('controller:password_change')
+            return redirect('/controller/login/')
         else:
             messages.error(request, 'please correct the error below')
     else:
         form = PasswordChangeForm(request.user)
     return render(request, 'motorcontroller/password_change.html', {'form':form})
+
+
+@login_required
+def register_device(request):
+    if request.POST:
+        form = DeviceForm(request.POST)
+        if form.is_valid():
+            register = form.save(commit=False)
+            register.user = request.user
+            register.save()
+            messages.success(request, 'Registered Successfully')
+            return redirect('motorcontroller:register_device')
+        else:
+            messages.error(request, 'Please Enter a valid device_id')
+    else:
+        form = DeviceForm()
+    return render(request, 'motorcontroller/register_device.html', {'form':form})

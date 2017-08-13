@@ -1,6 +1,6 @@
 from django.db import models
-import datetime
-from django.utils import timezone
+# import datetime
+# from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator, MinValueValidator
 
@@ -21,29 +21,30 @@ class ControlInstruction(models.Model):
         ('FW', 'Forward'),
         ('BW', 'Backward'),
     )
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    # OneToOneField is is similar to a ForeignKey with unique=True, but the “reverse”
+    # side of the relation will directly return a single object.
+    device = models.OneToOneField(Device, on_delete=models.CASCADE, primary_key=True)
     on_off_flag = models.BooleanField(default=False)
-    voltage_flag = models.CharField(max_length=20)
-    current_flag = models.CharField(max_length=20)
-    speed_flag = models.IntegerField(default=0,
-                                     validators=[MinValueValidator(0), MaxValueValidator(100)])
+    voltage_flag = models.FloatField(max_length=20, default=0)
+    current_flag = models.FloatField(max_length=20, default=0)
+    speed_flag = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     direction_flag = models.CharField(max_length=2, choices=DIRECTION_CHOICES)
     frequency_flag = models.IntegerField(default=0)
 
 
 class Changes(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    device = models.OneToOneField(Device, on_delete=models.CASCADE, primary_key=True)
     change = models.BooleanField(default=True)
 
 
 class DeviceStatus(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    device = models.OneToOneField(Device, on_delete=models.CASCADE, primary_key=True)
     created = models.DateTimeField('Creation date')
     last_connected = models.DateTimeField()
 
 
 class DeviceStates(models.Model):
-    device = models.ForeignKey(Device, on_delete=models.CASCADE)
+    device = models.OneToOneField(Device, on_delete=models.CASCADE, primary_key=True)
     on_or_off = models.BooleanField()
     voltage = models.CharField(max_length=20)
     current = models.CharField(max_length=20)
